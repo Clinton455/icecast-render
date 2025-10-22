@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<icecast>
+  <!-- Basic info -->
+  <location>Earth</location>
+  <admin>admin@localhost</admin>
+  <hostname>localhost</hostname>
+
+  <!-- Global HTTP headers (CORS) -->
+  <http-headers>
+    <header name="Access-Control-Allow-Origin" value="*" />
+  </http-headers>
+
+  <!-- Paths -->
+  <paths>
+    <!-- base dir and webroots used by the container/config -->
+    <basedir>/usr/share/icecast</basedir>
+    <webroot>/usr/share/icecast/web</webroot>
+    <adminroot>/usr/share/icecast/admin</adminroot>
+
+    <!-- logging / pid -->
+    <logdir>/var/log/icecast</logdir>
+    <pidfile>/var/run/icecast/icecast.pid</pidfile>
+
+    <!-- alias root to status page -->
+    <alias source="/" destination="/status.xsl"/>
+  </paths>
+
+  <!-- Limits -->
+  <limits>
+    <clients>100</clients>          <!-- max simultaneous listeners overall -->
+    <sources>10</sources>           <!-- max source clients -->
+    <threadpool>5</threadpool>
+    <queue-size>524288</queue-size>
+    <client-timeout>30</client-timeout>
+    <header-timeout>15</header-timeout>
+    <source-timeout>10</source-timeout>
+    <burst-on-connect>1</burst-on-connect>
+    <burst-size>65535</burst-size>
+  </limits>
+
+  <!-- Authentication -->
+  <authentication>
+    <source-password>hackme</source-password>
+    <relay-password>hackme</relay-password>
+    <admin-user>admin</admin-user>
+    <admin-password>hackme</admin-password>
+  </authentication>
+
+  <!-- Listen socket -->
+  <listen-socket>
+    <port>8000</port>
+    <bind-address>0.0.0.0</bind-address>
+  </listen-socket>
+
+  <!-- Enable static file serving -->
+  <fileserve>1</fileserve>
+
+  <!-- Static mountpoint so /stream works without a live source -->
+  <mount>
+    <mount-name>/stream</mount-name>
+    <file>/usr/share/icecast/web/default.mp3</file>
+    <public>1</public>
+    <max-listeners>100</max-listeners>
+    <!-- optional: <intro>/intro.mp3</intro> -->
+  </mount>
+
+  <!-- Default mount settings (applies to mounts without explicit settings) -->
+  <mount type="default">
+    <public>1</public>
+  </mount>
+
+  <!-- Logging -->
+  <logging>
+    <accesslog>access.log</accesslog>
+    <errorlog>error.log</errorlog>
+    <loglevel>3</loglevel>
+    <logsize>10000</logsize>
+  </logging>
+</icecast>

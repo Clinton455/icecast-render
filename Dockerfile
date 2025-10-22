@@ -1,15 +1,14 @@
-# Use a working Icecast image with full web interface
+# Use a working Icecast image with the web UI included
 FROM infiniteproject/icecast
 
-# Expose port 8000 (Render maps this automatically)
+# Copy a custom icecast config and web files into the image
+COPY icecast.xml /etc/icecast.xml
+COPY web/ /usr/share/icecast/web/
+
+# Expose Icecast default port
 EXPOSE 8000
 
-# Set environment variables for Icecast passwords
+# Passwords (as you requested)
 ENV ICECAST_SOURCE_PASSWORD=hackme
 ENV ICECAST_ADMIN_PASSWORD=hackme
 ENV ICECAST_PASSWORD=hackme
-
-# Optional: set mountpoint for streaming
-# You can change this later in icecast.xml if needed
-# Tell Icecast to listen on the port Render provides
-ENV ICECAST_PORT=$PORT
