@@ -1,7 +1,7 @@
-# Use official LinuxServer Icecast image
-FROM linuxserver/icecast
+# Use a working Icecast image
+FROM infiniteproject/icecast
 
-# Expose Icecast default port
+# Expose Icecast port 8000
 EXPOSE 8000
 
 # Set environment variables for Icecast passwords
