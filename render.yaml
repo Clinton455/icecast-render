@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: icecast
+    env: docker
+    dockerfilePath: Dockerfile
+    autoDeploy: true
+    plan: free
